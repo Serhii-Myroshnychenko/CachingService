@@ -14,11 +14,11 @@ namespace CachingService.Data.Repositories
             _redis = redis;
             _database = _redis.GetDatabase();
         }
-        public async void CreatePlatform(Platform platfrom)
+        public void CreatePlatform(Platform platfrom)
         {
             if(platfrom == null) { throw new ArgumentNullException(nameof(platfrom)); }
             var serialPlat = JsonSerializer.Serialize(platfrom);
-            await _database.StringSetAsync(platfrom.Id, serialPlat);
+            _database.StringSet(platfrom.Id, serialPlat);
         }
         public IEnumerable<Platform> GetAllPlatforms()
         {
